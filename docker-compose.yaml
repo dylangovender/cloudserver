@@ -18,3 +18,18 @@ services:
       - 51413:51413
       - 51413:51413/udp
     restart: unless-stopped
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID={PUID}
+      - PGID={GUID}
+      - TZ={TZ}
+      - VERSION=docker
+      - PLEX_CLAIM= #optional
+    volumes:
+      - /plex/config:/config
+      - /mnt/onedrive/downloads/complete:/tv
+      - /mnt/onedrive/downloads/complete:/movies
+    restart: unless-stopped
