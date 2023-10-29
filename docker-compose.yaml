@@ -11,8 +11,8 @@ services:
       - PASS=transmission #NEED TO CHANGE THIS
     volumes:
       - /transmission/config:/config
-      - /{download_folder}/downloads:/downloads
-      - /{download_folder}/downloads/watch:/watch
+      - /mnt/onedrive/downloads:/downloads
+      - /mnt/onedrive/downloads/watch:/watch
     ports:
       - 9091:9091
       - 51413:51413
