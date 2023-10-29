@@ -1,0 +1,20 @@
+version: "2.1"
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - PUID={PUID}
+      - PGID={GUID}
+      - TZ={TZ}
+      - USER=transmission
+      - PASS=transmission #NEED TO CHANGE THIS
+    volumes:
+      - /transmission/config:/config
+      - /{download_folder}/downloads:/downloads
+      - /{download_folder}/downloads/watch:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
