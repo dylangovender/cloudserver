@@ -32,4 +32,9 @@ services:
       - /plex/config:/config
       - /mnt/onedrive/downloads/complete:/tv
       - /mnt/onedrive/downloads/complete:/movies
+      - /dev/shm:/transcode
     restart: unless-stopped
+
+volumes:
+  transcode:
+    external: true
