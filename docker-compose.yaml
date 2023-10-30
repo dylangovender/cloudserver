@@ -28,7 +28,7 @@ services:
       - USER=transmission
       - PASS=transmission #NEED TO CHANGE THIS
     volumes:
-      - /transmission/config:/config
+      - /transmission_mam/config:/config
       - /mnt/onedrive/downloads:/downloads
       - /mnt/onedrive/downloads/watch:/watch
     ports:
