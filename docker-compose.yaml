@@ -36,6 +36,20 @@ services:
       - 51414:51413
       - 51414:51413/udp
     restart: unless-stopped
+  readarr:
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${GUID}
+      - TZ=${TZ}
+    volumes:
+      - /readarr:/config
+      - /mnt/onedrive/books:/books #optional
+      - /mnt/onedrive/downloads/complete:/downloads #optional
+    ports:
+      - 8787:8787
+    restart: unless-stopped
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
