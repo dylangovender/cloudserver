@@ -18,6 +18,24 @@ services:
       - 51413:51413
       - 51413:51413/udp
     restart: unless-stopped
+  transmission-mam:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission-mam
+    environment:
+      - PUID=${PUID}
+      - PGID=${GUID}
+      - TZ=${TZ}
+      - USER=transmission
+      - PASS=transmission #NEED TO CHANGE THIS
+    volumes:
+      - /transmission/config:/config
+      - /mnt/onedrive/downloads:/downloads
+      - /mnt/onedrive/downloads/watch:/watch
+    ports:
+      - 9092:9091
+      - 51414:51413
+      - 51414:51413/udp
+    restart: unless-stopped
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
