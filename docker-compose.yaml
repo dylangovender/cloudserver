@@ -4,9 +4,9 @@ services:
     image: lscr.io/linuxserver/transmission:latest
     container_name: transmission
     environment:
-      - PUID={PUID}
-      - PGID={GUID}
-      - TZ={TZ}
+      - PUID=${PUID}
+      - PGID=${GUID}
+      - TZ=${TZ}
       - USER=transmission
       - PASS=transmission #NEED TO CHANGE THIS
     volumes:
@@ -23,9 +23,9 @@ services:
     container_name: plex
     network_mode: host
     environment:
-      - PUID={PUID}
-      - PGID={GUID}
-      - TZ={TZ}
+      - PUID=${PUID}
+      - PGID=${GUID}
+      - TZ=${TZ}
       - VERSION=docker
       - PLEX_CLAIM= #optional
     volumes:
