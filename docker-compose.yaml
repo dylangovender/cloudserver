@@ -50,6 +50,18 @@ services:
     ports:
       - 8787:8787
     restart: unless-stopped
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${GUID}
+      - TZ=${TZ}
+    volumes:
+      - /prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
