@@ -62,6 +62,22 @@ services:
     ports:
       - 9696:9696
     restart: unless-stopped
+  calibre:
+    image: lscr.io/linuxserver/calibre:latest
+    container_name: calibre
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=${PUID}
+      - PGID=${GUID}
+      - TZ=${TZ}
+    volumes:
+      - /mnt/onedrive/calibre:/config
+    ports:
+      - 8080:8080
+      - 8181:8181
+      - 8081:8081
+    restart: unless-stopped
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
