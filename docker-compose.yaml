@@ -90,11 +90,24 @@ services:
       - PLEX_CLAIM= #optional
     volumes:
       - /plex/config:/config
-      - /mnt/onedrive/downloads/complete:/tv
+      - /mnt/onedrive/series:/tv
       - /mnt/onedrive/downloads/complete:/movies
       - /dev/shm:/transcode
     restart: unless-stopped
-
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${GUID}
+      - TZ=${TZ}
+    volumes:
+      - /sonarr/config:/config
+      - /mnt/onedrive/series:/tv #optional
+      - /mnt/onedrive/downloads/complete:/downloads #optional
+    ports:
+      - 8989:8989
+    restart: unless-stopped
 volumes:
   transcode:
     external: true
