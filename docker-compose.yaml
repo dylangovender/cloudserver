@@ -104,7 +104,7 @@ services:
     volumes:
       - /sonarr/config:/config
       - /mnt/onedrive/series:/tv #optional
-      - /mnt/onedrive/downloads/complete:/downloads #optional
+      - /mnt/onedrive/downloads/complete:/downloads/complete #optional
     ports:
       - 8989:8989
     restart: unless-stopped
