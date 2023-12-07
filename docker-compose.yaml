@@ -10,7 +10,7 @@ services:
       - USER=transmission
       - PASS=transmission #NEED TO CHANGE THIS
     volumes:
-      - /transmission/config:/config
+      - /home/ubuntu/docker_compose/transmission:/config
       - /mnt/onedrive/downloads:/downloads
       - /mnt/onedrive/downloads/watch:/watch
     ports:
@@ -28,7 +28,7 @@ services:
       - USER=transmission
       - PASS=transmission #NEED TO CHANGE THIS
     volumes:
-      - /transmission_mam/config:/config
+      - /home/ubuntu/docker_compose/transmission_mam:/config
       - /mnt/onedrive/downloads/books:/downloads
       - /mnt/onedrive/downloads/watch:/watch
     ports:
@@ -44,7 +44,7 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - /readarr/config:/config
+      - /home/ubuntu/docker_compose/readarr:/config
       - /mnt/onedrive/books:/books
       - /mnt/onedrive/downloads/books/complete:/downloads/complete
     ports:
@@ -58,7 +58,7 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - /prowlarr/config:/config
+      - /home/ubuntu/docker_compose/prowlarr:/config
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -72,7 +72,7 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - /mnt/onedrive/calibre:/config
+      - /home/ubuntu/docker_compose/calibre:/config
     ports:
       - 8080:8080
       - 8181:8181
@@ -89,7 +89,7 @@ services:
       - VERSION=docker
       - PLEX_CLAIM= #optional
     volumes:
-      - /plex/config:/config
+      - /home/ubuntu/docker_compose/plex:/config
       - /mnt/onedrive/series:/tv
       - /mnt/onedrive/downloads/complete:/movies
       - /dev/shm:/transcode
@@ -102,7 +102,7 @@ services:
       - PGID=${GUID}
       - TZ=${TZ}
     volumes:
-      - /sonarr/config:/config
+      - /home/ubuntu/docker_compose/sonarr:/config
       - /mnt/onedrive/series:/tv #optional
       - /mnt/onedrive/downloads/complete:/downloads/complete #optional
     ports:
@@ -117,7 +117,7 @@ services:
       - TZ=${TZ}
       - JELLYFIN_PublishedServerUrl=192.168.0.5 #optional
     volumes:
-      - /jellyfin/config:/config
+      - /home/ubuntu/docker_compose/jellyfin:/config
       - /mnt/onedrive/series:/data/tvshows
       - /mnt/onedrive/movies:/data/movies
     ports:
