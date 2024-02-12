@@ -73,6 +73,7 @@ services:
       - TZ=${TZ}
     volumes:
       - /home/ubuntu/docker_compose/calibre:/config
+      - /mnt/onedrive/books:/books
     ports:
       - 8080:8080
       - 8181:8181
