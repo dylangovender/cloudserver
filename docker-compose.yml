@@ -1,0 +1,25 @@
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    restart: unless-stopped
+    ports:
+      - "9091:9091"          # Web UI
+      - "51413:51413"        # Torrent TCP
+      - "51413:51413/udp"    # Torrent UDP
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - TRANSMISSION_DOWNLOAD_DIR=/downloads/complete
+      - TRANSMISSION_INCOMPLETE_DIR=/downloads/incomplete
+      - TRANSMISSION_WATCH_DIR=/watch
+      # Enable RPC auth for safety
+      - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
+      - TRANSMISSION_RPC_USERNAME=${TR_USERNAME}
+      - TRANSMISSION_RPC_PASSWORD=${TR_PASSWORD}
+      # optional: nicer web UI theme already in image
+    volumes:
+      - ./qbittorrent/config:/config
+      - ./qbittorrent/downloads:/downloads
+      - ./qbittorrent/watch:/watch

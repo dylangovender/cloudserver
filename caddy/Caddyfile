@@ -1,0 +1,31 @@
+{$DOMAIN_CWA} {
+  encode gzip
+  basicauth {
+    {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
+  }
+  reverse_proxy calibre-web:8083
+}
+
+{$DOMAIN_READARR} {
+  encode gzip
+  basicauth {
+    {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
+  }
+  reverse_proxy readarr:8787
+}
+
+prowlarr.${DOMAIN_CWA#cwa.} {
+  encode gzip
+  basicauth {
+    {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
+  }
+  reverse_proxy prowlarr:9696
+}
+
+trans.${DOMAIN_CWA#cwa.} {
+  encode gzip
+  basicauth {
+    {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
+  }
+  reverse_proxy transmission:9091
+}
