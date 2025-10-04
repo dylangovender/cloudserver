@@ -8,8 +8,6 @@ services:
     image: lscr.io/linuxserver/transmission:latest
     container_name: transmission
     restart: unless-stopped
-    # REMOVE any "9091:9091" line; do NOT publish the UI
-    # Keep torrent ports published for swarm performance:
     ports:
       - "51413:51413"
       - "51413:51413/udp"
@@ -23,16 +21,27 @@ services:
       - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
       - TRANSMISSION_RPC_USERNAME=${TR_USERNAME}
       - TRANSMISSION_RPC_PASSWORD=${TR_PASSWORD}
-      # Allow ONLY Docker-internal callers + loopback (Caddy will be on svc)
       - TRANSMISSION_RPC_WHITELIST=127.0.0.1,::1,172.16.*.*,172.17.*.*,172.18.*.*,172.19.*.*,172.20.*.*
       - TRANSMISSION_RPC_WHITELIST_ENABLED=true
-      # Extra hardening: only accept these Host headers to the RPC
       - TRANSMISSION_RPC_HOST_WHITELIST=localhost,transmission,trans.dgdev.co.za
       - TRANSMISSION_RPC_HOST_WHITELIST_ENABLED=true
     volumes:
       - ./qbittorrent/config:/config
       - ./qbittorrent/downloads:/downloads
       - ./qbittorrent/watch:/watch
+    networks:
+      - svc
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./readarr/prowlarr:/config
     networks:
       - svc
 
@@ -45,6 +54,7 @@ services:
       - "443:443"
     environment:
       - DOMAIN_TRANS=${DOMAIN_TRANS}
+      - DOMAIN_PROWLARR=${DOMAIN_PROWLARR}
       - BASIC_AUTH_USER=${BASIC_AUTH_USER}
       - BASIC_AUTH_HASH=${BASIC_AUTH_HASH}
     volumes:
