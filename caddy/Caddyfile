@@ -1,31 +1,19 @@
-{$DOMAIN_CWA} {
+{$DOMAIN_TRANS} {
   encode gzip
-  basicauth {
-    {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
-  }
-  reverse_proxy calibre-web:8083
-}
 
-{$DOMAIN_READARR} {
-  encode gzip
-  basicauth {
+  # Basic auth (bcrypt hash from .env)
+  basic_auth {
     {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
   }
-  reverse_proxy readarr:8787
-}
 
-prowlarr.${DOMAIN_CWA#cwa.} {
-  encode gzip
-  basicauth {
-    {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
+  # Security headers (safe, built-in)
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    Referrer-Policy "no-referrer"
   }
-  reverse_proxy prowlarr:9696
-}
 
-trans.${DOMAIN_CWA#cwa.} {
-  encode gzip
-  basicauth {
-    {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
-  }
-  reverse_proxy transmission:9091
+  # Reverse proxy to Transmission inside the Docker network
+  reverse_proxy http://transmission:9091
 }
